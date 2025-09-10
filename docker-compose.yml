@@ -1,0 +1,241 @@
+# the bti_apollo database was re-loaded from the db9 backup on March 14, 2025 when the
+# system was moved from the vm apollo.sgn.cornell.edu to the docker hosted apollo on vm-10. The
+# vm was moved to apollo-archive.sgn.cornell.edu
+#
+services:
+  apollo:
+    image: gmod/apollo:feb2025
+    environment:
+      APOLLO_ADMIN_EMAIL: lam87@cornell.edu
+      APOLLO_ADMIN_PASSWORD: do_not_know
+      WEBAPOLLO_DEBUG: true
+      WEBAPOLLO_DB_NAME: bti_apollo
+      WEBAPOLLO_DB_USERNAME: postgres
+      
+    container_name: apollo_web
+    ports:
+      - 8115:8080
+    volumes:
+      - type: bind
+        source: /export/prod/jbrowse_apollo/current/data/
+        target: /data
+      - type: bind
+        source: /export/prod/public_apollo/temp
+        target: /opt/apollo/temporary_data
+      - type: bind
+        source: /data/apollo_pgdata
+        target: /var/lib/postgresql
+      - type: bind
+        source: /export/prod/public_apollo
+        target: /db_dumps
+      - type: bind
+        source: /export/prod
+        target: /export/prod
+      # - type: bind
+      #   source: /export/prod/private/genomes/Nicotiana_tabacum/Nitab4.5_private_apollo
+      #   target: /export/prod/private/genomes/Nicotiana_tabacum/Nitab4.5_private_apollo
+      # - type: bind
+      #   source: /export/prod/jbrowse_fernbase/data/json/Azolla_filiculoides/
+      #   target: /export/prod/jbrowse_fernbase/data/json/Azolla_filiculoides/
+      # - type: bind
+      #   source: /export/prod/jbrowse_fernbase/data/json/Azolla_asm_v1.1
+      #   target: /export/prod/jbrowse_fernbase/data/json/Azolla_asm_v1.1
+#      - type: bind
+#        source: /opt/apollo/data/json/Leucaena_trichandra
+#        target: /opt/apollo/data/json/Leucaena_trichandra
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/Niben1.0.1/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/Niben1.0.1/
+      # - type: bind
+      #   source: /export/prod/jbrowse_fernbase/data/json/Salvinia_asm_v1.2
+      #   target: /export/prod/jbrowse_fernbase/data/json/Salvinia_asm_v1.2
+      # - type: bind
+      #   source: /export/prod/jbrowse_coffea/data/json/Coffea_eugenioidesv1.6/
+      #   target: /export/prod/jbrowse_coffea/data/json/Coffea_eugenioidesv1.6/
+      # - type: bind
+      #   source: /opt/apollo/data/json/Erysimum_cheiranthoides
+      #   target: /opt/apollo/data/json/Erysimum_cheiranthoides
+      # - type: bind
+      #   source: /opt/apollo/data/json/Solanum_lycopersicoides
+      #   target: /opt/apollo/data/json/Solanum_lycopersicoides
+      # - type: bind
+      #   source: /opt/apollo/data/json/NitabEd17
+      #   target: /opt/apollo/data/json/NitabEd17
+      # - type: bind
+      #   source: /opt/apollo/data/json/Erysimum_cheiranthoides/v1.1
+      #   target: /opt/apollo/data/json/Erysimum_cheiranthoides/v1.1
+      # - type: bind
+      #   source: /export/prod/jbrowse_coffea/data/json/Coffea_canephorav1.8/
+      #   target: /export/prod/jbrowse_coffea/data/json/Coffea_canephorav1.8/
+      # - type: bind
+      #   source: /opt/apollo/data/json/Solanum_lycopersicoides
+      #   target: /opt/apollo/data/json/Solanum_lycopersicoides
+      # - type: bind
+      #   source: /export/prod/jbrowse_fernbase/data/json/Salvinia_cucullata/
+      #   target: /export/prod/jbrowse_fernbase/data/json/Salvinia_cucullata/
+      # - type: bind
+      #   source: /export/prod/jbrowse_coffea/data/json/Coffea_arabica_VIB_v0.6
+      #   target: /export/prod/jbrowse_coffea/data/json/Coffea_arabica_VIB_v0.6
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v2.0_ref
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v2.0_ref
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/Ntab_TN90/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/Ntab_TN90/
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/Pepper.v.1.55/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/Pepper.v.1.55/
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/Peaxi162/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/Peaxi162/
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/Peinf101/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/Peinf101/
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/spenn/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/spenn/
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/PGSC_DM_v4.03/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/PGSC_DM_v4.03/
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Citrus_sinensis/
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Citrus_sinensis/
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Citrus_clementina/
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Citrus_clementina/
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Citrus_sinensis-v2/
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Citrus_sinensis-v2/
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/LeuceanaV0.2
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/LeuceanaV0.2
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Solanum_lycopersicoides/SLyd0.6
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Solanum_lycopersicoides/SLyd0.6
+      # - type: bind
+      #   source: /export/prod/private/genomes/Nicotiana_tabacum/Nitab5.0/Jbrowse/Ntab_v5
+      #   target: /export/prod/private/genomes/Nicotiana_tabacum/Nitab5.0/Jbrowse/Ntab_v5
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/SL4.0/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/SL4.0/
+      # - type: bind
+      #   source: /export/prod/jbrowse_solgenomics/data/json/SL2.50/
+      #   target: /export/prod/jbrowse_solgenomics/data/json/SL2.50/
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Isoetes_taiwanese/
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Isoetes_taiwanese/
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/lcresens/
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/lcresens/
+      # - type: bind
+      #   source: /export/prod/private/genomes/Diaphorina_citri/Diaci_v2.0/Diaci_v1.91_backup-jbrowse/
+      #   target: /export/prod/private/genomes/Diaphorina_citri/Diaci_v2.0/Diaci_v1.91_backup-jbrowse/
+      # - type: bind
+      #   source: /export/prod/private/genomes/Nicotiana_tabacum/Nitab6.0/Jbrowse/Nitab6.0
+      #   target: /export/prod/private/genomes/Nicotiana_tabacum/Nitab6.0/Jbrowse/Nitab6.0
+      # - type: bind
+      #   source: /export/prod/jbrowse_citrusgreening/current/data/json/Erysimum_cheiranthoides/v1.2
+      #   target: /export/prod/jbrowse_citrusgreening/current/data/json/Erysimum_cheiranthoides/v1.2
+
+#      - type: bind
+#      	source: /export/prod/jbrowse_citrusgreening/current/data/json/LeuceanaV0.3/
+#        target: /export/prod/jbrowse_citrusgreening/current/data/json/LeuceanaV0.3/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   # - type: bind
+   #   source:  /export/prod/jbrowse_solgenomics/data/json/eggplant3.0/
+   #   target:  /export/prod/jbrowse_solgenomics/data/json/eggplant3.0/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/lam_saopaulo/
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/lam_saopaulo/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/las_gxpsy/
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/las_gxpsy/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/las_psy62/
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/las_psy62/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_solgenomics/data/json/SL4.0/
+   #   target:  /export/prod/jbrowse_solgenomics/data/json/SL4.0/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Fagus_grandifolia/BTI_V0.1
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Fagus_grandifolia/BTI_V0.1
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/lso_zc1/
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/lso_zc1/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Fagus_grandifolia/UConn_V0.1
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Fagus_grandifolia/UConn_V0.1
+   # - type: bind
+   #   source:  /export/prod/jbrowse_solgenomics/data/json/SL4.0/
+   #   target:  /export/prod/jbrowse_solgenomics/data/json/SL4.0/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Triboleum_madens/
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Triboleum_madens/
+   # - type: bind
+   #   source:  /export/prod/private/genomes/Cannabis_sativa/Csativa_cs10/Jbrowse/Csativa_cs10/
+   #   target:  /export/prod/private/genomes/Cannabis_sativa/Csativa_cs10/Jbrowse/Csativa_cs10/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Zophobas_atratus
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Zophobas_atratus
+   # - type: bind
+   #   source:  /opt/apollo/data/json/SL3.0
+   #   target:  /opt/apollo/data/json/SL3.0
+   # - type: bind
+   #   source:  /export/prod/private/genomes/Cannabis_sativa/Csativa_wildv1/Jbrowse/Csativa_wild_v1
+   #   target:  /export/prod/private/genomes/Cannabis_sativa/Csativa_wildv1/Jbrowse/Csativa_wild_v1
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/OH1
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/OH1
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Iochroma_v3.0
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Iochroma_v3.0
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/LA2093
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/LA2093
+   # - type: bind
+   #   source:  /export/prod/jbrowse_coffea/data/json/Coffea_arabica_Jun21/
+   #   target:  /export/prod/jbrowse_coffea/data/json/Coffea_arabica_Jun21/
+   # - type: bind
+   #   source:  /export/prod/jbrowse_coffea/data/json/Coffea_eugenioides_Jun21
+   #   target:  /export/prod/jbrowse_coffea/data/json/Coffea_eugenioides_Jun21
+   # - type: bind
+   #   source:  /export/prod/jbrowse_coffea/data/json/Coffea_arabica_Jun21
+   #   target:  /export/prod/jbrowse_coffea/data/json/Coffea_arabica_Jun21
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/PtoR
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/PtoR
+   # - type: bind
+   #   source:  /export/prod/jbrowse_coffea/data/json/Coffea_canephora_Jun21
+   #   target:  /export/prod/jbrowse_coffea/data/json/Coffea_canephora_Jun21
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Annona_muricata
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Annona_muricata
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/PtoR
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/PtoR
+   # - type: bind
+   #   source:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
+   #   target:  /export/prod/jbrowse_citrusgreening/current/data/json/Diaci_v3.0_ref
